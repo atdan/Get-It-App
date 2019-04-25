@@ -93,12 +93,9 @@ class PostDetailActivity : AppCompatActivity() {
             if (Common.isConnectedToInternet(this)) {
                 when (intent.getStringExtra(Common.FROM_ACTIVITY)) {
                     Common.HOME_ACTIVITY -> getDetailFoodHome(postId!!)
-                    Common.MY_UPLOADS_ACTIVITY ->
+                    Common.MY_UPLOADS_ACTIVITY -> getDetailFoodMyUploads(postId!!)
 
-                        getDetailFoodMyUploads(postId!!)
-                    Common.CATEGORIES_ACTIVITY ->
-
-                        getDetailFoodCategories(postId!!)
+                    Common.CATEGORIES_ACTIVITY -> getDetailFoodCategories(postId!!)
                 }
 
 
@@ -135,6 +132,7 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
     private fun getDetailFoodMyUploads(postId: String) {
+        Log.e("Called my ad method: ", "Start")
         postRefMyAds.child(Objects.requireNonNull<FirebaseUser>(auth.currentUser).uid).child(postId).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 current_post = dataSnapshot.getValue(Post::class.java)
